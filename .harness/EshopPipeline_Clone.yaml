@@ -37,6 +37,7 @@ pipeline:
                           - AllErrors
                         action:
                           type: Ignore
+        variables: []
     - stage:
         name: Jira Process
         identifier: Jira_Process
