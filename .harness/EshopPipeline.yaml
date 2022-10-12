@@ -49,7 +49,7 @@ pipeline:
                     connectorRef: JiraNewProjectConnector
                     projectKey: HAR
                     issueType: Story
-                    issueKey: HAR-9
+                    issueKey: <+pipeline.stages.Jira_Process.spec.execution.steps.Create_Story.issue.key>
               - step:
                   name: mark as done
                   identifier: mark_as_done
@@ -57,7 +57,7 @@ pipeline:
                   timeout: 5m
                   spec:
                     connectorRef: JiraNewProjectConnector
-                    issueKey: HAR-9
+                    issueKey: <+pipeline.stages.Jira_Process.spec.execution.steps.Create_Story.issue.key>
                     transitionTo:
                       transitionName: ""
                       status: Done
