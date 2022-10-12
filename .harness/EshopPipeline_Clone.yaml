@@ -4,6 +4,34 @@ pipeline:
   tags: {}
   stages:
     - stage:
+        name: buildgit
+        identifier: buildgit
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              connectorRef: newprojectcluster
+              namespace: harness-delegate-ng
+              automountServiceAccountToken: true
+              nodeSelector: {}
+              os: Windows
+          execution:
+            steps:
+              - step:
+                  type: GitClone
+                  name: GitClone
+                  identifier: GitClone
+                  spec:
+                    connectorRef: harnesseshopgitconnector
+                    repoName: eShopOnContainer
+                    build:
+                      type: branch
+                      spec:
+                        branch: dev-patch
+    - stage:
         name: Deploy1
         identifier: Deploy1
         description: ""
