@@ -156,6 +156,8 @@ pipeline:
                       type: branch
                       spec:
                         branch: dev
+        when:
+          pipelineStatus: All
     - stage:
         name: deploy
         identifier: deploy
