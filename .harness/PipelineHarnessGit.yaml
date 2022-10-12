@@ -42,7 +42,12 @@ pipeline:
                   failureStrategies: []
         when:
           pipelineStatus: Success
-        failureStrategies: []
+        failureStrategies:
+          - onFailure:
+              errors:
+                - AllErrors
+              action:
+                type: MarkAsSuccess
     - stage:
         name: Jira Progress
         identifier: Jira_Progress
