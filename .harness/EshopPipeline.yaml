@@ -1,0 +1,67 @@
+pipeline:
+  name: EshopPipeline
+  identifier: EshopPipeline
+  projectIdentifier: NewProject
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: Jira Process
+        identifier: Jira_Process
+        description: ""
+        type: Approval
+        spec:
+          execution:
+            steps:
+              - step:
+                  name: Create Story
+                  identifier: Create_Story
+                  type: JiraCreate
+                  timeout: 5m
+                  spec:
+                    connectorRef: JiraNewProjectConnector
+                    projectKey: HAR
+                    issueType: Story
+                    fields:
+                      - name: Comment
+                        value: Story Created
+                      - name: Summary
+                        value: new workflow created
+              - step:
+                  name: Check and approve
+                  identifier: Check_and_approve
+                  type: JiraApproval
+                  timeout: 3m
+                  spec:
+                    approvalCriteria:
+                      type: KeyValues
+                      spec:
+                        matchAnyCondition: true
+                        conditions:
+                          - key: Status
+                            operator: equals
+                            value: To Do
+                    rejectionCriteria:
+                      type: KeyValues
+                      spec:
+                        matchAnyCondition: true
+                        conditions: []
+                    connectorRef: JiraNewProjectConnector
+                    projectKey: HAR
+                    issueType: Story
+                    issueKey: HAR-9
+              - step:
+                  name: mark as done
+                  identifier: mark_as_done
+                  type: JiraUpdate
+                  timeout: 5m
+                  spec:
+                    connectorRef: JiraNewProjectConnector
+                    issueKey: HAR-9
+                    transitionTo:
+                      transitionName: ""
+                      status: Done
+                    fields:
+                      - name: Comment
+                        value: Story Completed
+        tags: {}
