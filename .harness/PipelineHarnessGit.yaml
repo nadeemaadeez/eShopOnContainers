@@ -38,15 +38,11 @@ pipeline:
                     build:
                       type: branch
                       spec:
-                        branch: dev-patch
+                        branch: dev
+                  failureStrategies: []
         when:
           pipelineStatus: Success
-        failureStrategies:
-          - onFailure:
-              errors:
-                - AllErrors
-              action:
-                type: MarkAsSuccess
+        failureStrategies: []
     - stage:
         name: Jira Progress
         identifier: Jira_Progress
