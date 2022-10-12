@@ -160,14 +160,4 @@ pipeline:
                   spec:
                     pruningEnabled: false
         tags: {}
-        failureStrategies:
-          - onFailure:
-              errors:
-                - AllErrors
-              action:
-                type: StageRollback
-          - onFailure:
-              errors:
-                - AllErrors
-              action:
-                type: MarkAsSuccess
+        failureStrategies: []
