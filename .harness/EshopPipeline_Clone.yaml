@@ -31,6 +31,12 @@ pipeline:
                       type: branch
                       spec:
                         branch: dev-patch
+                  failureStrategies:
+                    - onFailure:
+                        errors:
+                          - AllErrors
+                        action:
+                          type: Ignore
     - stage:
         name: Jira Process
         identifier: Jira_Process
