@@ -91,7 +91,7 @@ pipeline:
                     connectorRef: JiraNewProjectConnector
                     projectKey: HAR
                     issueType: Story
-                    issueKey: HAR-1
+                    issueKey: <+pipeline.stages.Jira_Progress.spec.execution.steps.Create_Story.issue.key>
               - step:
                   name: Complete Story
                   identifier: Complete_Story
@@ -99,7 +99,7 @@ pipeline:
                   timeout: 2m
                   spec:
                     connectorRef: JiraNewProjectConnector
-                    issueKey: HAR-1
+                    issueKey: <+pipeline.stages.Jira_Progress.spec.execution.steps.Create_Story.issue.key>
                     transitionTo:
                       transitionName: Completed
                       status: Done
