@@ -38,7 +38,7 @@ pipeline:
                     build:
                       type: branch
                       spec:
-                        branch: dev
+                        branch: dev-patch
         when:
           pipelineStatus: Success
         failureStrategies:
