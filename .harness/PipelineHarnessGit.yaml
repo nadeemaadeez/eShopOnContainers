@@ -47,3 +47,63 @@ pipeline:
                 - AllErrors
               action:
                 type: Ignore
+    - stage:
+        name: Jira Progress
+        identifier: Jira_Progress
+        description: ""
+        type: Approval
+        spec:
+          execution:
+            steps:
+              - step:
+                  name: Create Story
+                  identifier: Create_Story
+                  type: JiraCreate
+                  timeout: 2m
+                  spec:
+                    connectorRef: JiraNewProjectConnector
+                    projectKey: HAR
+                    issueType: Story
+                    fields:
+                      - name: Comment
+                        value: Story has been created
+                      - name: Summary
+                        value: Story to test Harness Progress
+              - step:
+                  name: Move the status after approval
+                  identifier: Move_the_status_after_approval
+                  type: JiraApproval
+                  timeout: 2m
+                  spec:
+                    approvalCriteria:
+                      type: KeyValues
+                      spec:
+                        matchAnyCondition: true
+                        conditions:
+                          - key: Status
+                            operator: equals
+                            value: To Do
+                    rejectionCriteria:
+                      type: KeyValues
+                      spec:
+                        matchAnyCondition: true
+                        conditions: []
+                    connectorRef: JiraNewProjectConnector
+                    projectKey: HAR
+                    issueType: Story
+                    issueKey: HAR-1
+              - step:
+                  name: Complete Story
+                  identifier: Complete_Story
+                  type: JiraUpdate
+                  timeout: 2m
+                  spec:
+                    connectorRef: JiraNewProjectConnector
+                    issueKey: HAR-1
+                    transitionTo:
+                      transitionName: Completed
+                      status: Done
+                    fields:
+                      - name: Comment
+                        value: Story has been completed from harness
+        tags: {}
