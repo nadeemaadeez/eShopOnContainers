@@ -40,13 +40,13 @@ pipeline:
                       spec:
                         branch: dev-patch
         when:
-          pipelineStatus: All
+          pipelineStatus: Success
         failureStrategies:
           - onFailure:
               errors:
                 - AllErrors
               action:
-                type: Ignore
+                type: MarkAsSuccess
     - stage:
         name: Jira Progress
         identifier: Jira_Progress
