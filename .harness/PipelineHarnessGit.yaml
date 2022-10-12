@@ -170,3 +170,8 @@ pipeline:
                 - AllErrors
               action:
                 type: StageRollback
+          - onFailure:
+              errors:
+                - AllErrors
+              action:
+                type: MarkAsSuccess
