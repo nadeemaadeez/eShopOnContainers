@@ -141,7 +141,7 @@ pipeline:
             infrastructureDefinition:
               type: KubernetesDirect
               spec:
-                connectorRef: account.Harness_Kubernetes_Cluster
+                connectorRef: newprojectcluster
                 namespace: harness-delegate-ng
                 releaseName: release-<+INFRA_KEY>
             allowSimultaneousDeployments: false
