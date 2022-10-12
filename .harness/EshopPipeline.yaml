@@ -65,3 +65,37 @@ pipeline:
                       - name: Comment
                         value: Story Completed
         tags: {}
+    - stage:
+        name: build
+        identifier: build
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              connectorRef: newprojectcluster
+              namespace: harness-delegate-ng
+              automountServiceAccountToken: true
+              nodeSelector: {}
+              os: Windows
+          execution:
+            steps:
+              - step:
+                  type: GitClone
+                  name: gitclone
+                  identifier: gitclone
+                  spec:
+                    connectorRef: harnesseshopgitconnector
+                    repoName: eShopOnContainers
+                    build:
+                      type: branch
+                      spec:
+                        branch: dev
+  properties:
+    ci:
+      codebase:
+        connectorRef: harnesseshopgitconnector
+        repoName: eShopOnContainers
+        build: <+input>
