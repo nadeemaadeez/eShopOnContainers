@@ -126,6 +126,8 @@ pipeline:
                       - name: Comment
                         value: Story Completed
         tags: {}
+        when:
+          pipelineStatus: All
     - stage:
         name: build
         identifier: build
