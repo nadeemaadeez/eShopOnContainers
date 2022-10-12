@@ -165,4 +165,9 @@ pipeline:
                   spec:
                     pruningEnabled: false
         tags: {}
-        failureStrategies: []
+        failureStrategies:
+          - onFailure:
+              errors:
+                - AllErrors
+              action:
+                type: MarkAsSuccess
