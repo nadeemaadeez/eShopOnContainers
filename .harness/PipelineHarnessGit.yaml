@@ -96,12 +96,12 @@ pipeline:
                   name: Complete Story
                   identifier: Complete_Story
                   type: JiraUpdate
-                  timeout: 2m
+                  timeout: 5m
                   spec:
                     connectorRef: JiraNewProjectConnector
                     issueKey: <+pipeline.stages.Jira_Progress.spec.execution.steps.Create_Story.issue.key>
                     transitionTo:
-                      transitionName: Completed
+                      transitionName: ""
                       status: Done
                     fields:
                       - name: Comment
