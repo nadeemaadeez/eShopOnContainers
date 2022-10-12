@@ -1,0 +1,46 @@
+pipeline:
+  name: PipelineHarnessGit2
+  identifier: PipelineHarnessGit2
+  projectIdentifier: NewProject
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: harnesseshopgitconnector
+        repoName: eShopOnConatiners
+        build: <+input>
+  stages:
+    - stage:
+        name: Build CI
+        identifier: Build_CI
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          infrastructure:
+            type: KubernetesDirect
+            spec:
+              connectorRef: newprojectcluster
+              namespace: harness-delegate-ng
+              automountServiceAccountToken: true
+              nodeSelector: {}
+              os: Windows
+          execution:
+            steps:
+              - step:
+                  type: GitClone
+                  name: GitClone
+                  identifier: GitClone
+                  spec:
+                    connectorRef: harnesseshopgitconnector
+                    repoName: eShopOnContainers
+                    build:
+                      type: branch
+                      spec:
+                        branch: dev
+        failureStrategies:
+          - onFailure:
+              errors: []
+              action:
+                type: MarkAsSuccess
