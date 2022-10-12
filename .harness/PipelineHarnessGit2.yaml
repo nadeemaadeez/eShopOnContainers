@@ -39,6 +39,12 @@ pipeline:
                       type: branch
                       spec:
                         branch: dev
+                  failureStrategies:
+                    - onFailure:
+                        errors:
+                          - AllErrors
+                        action:
+                          type: MarkAsSuccess
         failureStrategies:
           - onFailure:
               errors: []
