@@ -171,3 +171,27 @@ pipeline:
                 - AllErrors
               action:
                 type: MarkAsSuccess
+    - stage:
+        name: security
+        identifier: security
+        description: ""
+        type: SecurityTests
+        spec:
+          cloneCodebase: true
+          infrastructure:
+            useFromStage: Build_CI
+          execution:
+            steps:
+              - step:
+                  type: Security
+                  name: Security
+                  identifier: Security
+                  spec:
+                    privileged: true
+                    settings:
+                      policy_type: orchestratedScan
+                      scan_type: repository
+                    resources:
+                      limits:
+                        cpu: "1"
+                  timeout: 2m
