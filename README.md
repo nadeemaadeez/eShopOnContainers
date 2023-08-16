@@ -10,7 +10,7 @@ Sample .NET Core reference application, powered by Microsoft, based on a simplif
 
 ![](img/eshop-spa-app-home.png)
 
-## Build Status (GitHub Actions)
+## Build Status (GitHub Actions) ---- abcdef
 
 | Image | Status | Image | Status |
 | ------------- | ------------- | ------------- | ------------- |
